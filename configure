@@ -259,8 +259,14 @@ my $MYSQL_LIBS="$prefix_distrib/lib/mysql";
 if($bdb) {
 
     if($arch =~ /Darwin/) {
-        $BDB_INCLUDE="/opt/local/include/db46";
-        $BDB_LIBS="/opt/local/lib/db46";
+        my $brew = `which brew`;
+        if ( $brew =~ /\/usr\/local\/bin\/brew/) {
+            $BDB_INCLUDE="/usr/local/Cellar/berkeley-db4/4.8.30/include/";
+            $BDB_LIBS="/usr/local/Cellar/berkeley-db4/4.8.30/lib/";
+        } else {
+            $BDB_INCLUDE="/opt/local/include/db46";
+            $BDB_LIBS="/opt/local/lib/db46";
+        }
     }
     if($arch =~ /FreeBSD/) {
         $BDB_INCLUDE="/usr/local/include/db46";
